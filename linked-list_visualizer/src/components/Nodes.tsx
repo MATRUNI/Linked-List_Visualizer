@@ -45,10 +45,13 @@ function Nodes() {
             onMouseMove={mouseMoveHandler}
             style={{
                 userSelect: "none",
-                cursor: 'pointer',
+                cursor: 'grab',
+                backgroundColor: 'gray',
+                padding: '10px 15px',
                 position: "absolute",
                 left:`${position.x}px`,
                 top:`${position.y}px`,
+                
             }}
         >
             <span>
