@@ -1,22 +1,25 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import './nodes.css'
-type node={
-    x:number,
-    y:number,
-    data:string
+type nodePos={
+    id:string;
+    x:number;
+    y:number;
+    data:string;
+    next:string|null;
+    onDrag:(x:number,y:number)=>void;
 }
 
 
-function Node({x,y,data}:node)
+function Node({id,x,y,data,next,onDrag}:nodePos)
 {
     let [position,setPosition]=useState({x,y})
     let [isDragging,setDragging]=useState(false)
-    let OffSet=useRef({x:0,y:0})
+    let offSet=useRef({x:0,y:0})
 
     const handleMouseDown=(e:React.MouseEvent)=>{
         setDragging(true);
-        OffSet.current={
+        offSet.current={
             x:e.clientX - position.x,
             y:e.clientY - position.y,
         }
@@ -24,12 +27,11 @@ function Node({x,y,data}:node)
     useEffect(()=>{
         const handleMouseMove=(e:MouseEvent)=>{
             if(!isDragging) return;
-            console.log("Dragging")
             setPosition({
-                x:e.clientX - OffSet.current.x,
-                y:e.clientY - OffSet.current.y
+                x: e.clientX - offSet.current.x,
+                y: e.clientY - offSet.current.y
             });
-            console.log(position)
+            onDrag(e.clientX - offSet.current.x, e.clientY - offSet.current.y);
         }
         const handleMouseUp=()=> setDragging(false);
 
@@ -53,7 +55,9 @@ function Node({x,y,data}:node)
             top:position.y
         }}
         >
-        {data}
+        <div>ID: {id}</div>
+        <div>{data}</div>
+        <div>Next: {next?next:"null"}</div>
         </div>
         </>
     )

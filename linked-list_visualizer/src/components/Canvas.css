@@ -1,0 +1,9 @@
+
+.canvas{
+    height: 100dvh;
+    width: 100dvw;
+}
+svg{
+    height: inherit;
+    width: inherit;
+}

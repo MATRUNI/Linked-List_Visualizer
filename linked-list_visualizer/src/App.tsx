@@ -1,5 +1,5 @@
 import './App.css'
-import Node from './components/Nodes'
+import Canvas from './components/Canvas';
 
 function App() {
   const nodes = [
@@ -9,11 +9,9 @@ function App() {
 ];
 
   return (
-    <>
-    <Node {...nodes[0]}/>
-    <Node {...nodes[1]}/>
-    <Node {...nodes[2]}/>
-    </>
+    <div id='app-div'>
+      <Canvas/>
+    </div>
   )
 }
 
