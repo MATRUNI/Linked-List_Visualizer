@@ -1,0 +1,10 @@
+.node{
+    position: absolute;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.node:hover{
+    background: white;
+    color: black;
+    cursor: grab;
+}
