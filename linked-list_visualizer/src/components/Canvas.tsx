@@ -27,7 +27,7 @@ function Canvas() {
                 y1={nodes[0].y + 15}
                 x2={nodes[1].x + 25}
                 y2={nodes[1].y + 15}
-                stroke="black"
+                stroke="white"
                 strokeWidth={"2"}
             />
         </svg>
