@@ -1,5 +1,7 @@
-/* #app-div{
-  height: 100dvh;
-  background-color: pink;
-} */
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+}

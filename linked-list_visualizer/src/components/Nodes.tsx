@@ -1,66 +1,68 @@
-import type React from "react";
-import { useEffect, useRef, useState } from "react";
-import './nodes.css'
-type nodePos={
-    id:string;
-    x:number;
-    y:number;
-    data:string;
-    next:string|null;
-    onDrag:(x:number,y:number)=>void;
-}
+import React, { useEffect, useState } from "react";
+import './Nodes.css'
 
+type Node = {
+ id: string;
+  x: number;
+  y: number;
+  data: string;
+  onDrag: (id: string, n: number, m: number) => void,
+};
+function Nodes({ id, x, y, data, onDrag }: Node) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x, y });
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-function Node({id,x,y,data,next,onDrag}:nodePos)
-{
-    let [position,setPosition]=useState({x,y})
-    let [isDragging,setDragging]=useState(false)
-    let offSet=useRef({x:0,y:0})
+  const mouseDownHandler = (e: React.MouseEvent) => {
+    console.log("Down called");
+    setIsDragging(true);
+    setOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+  };
 
-    const handleMouseDown=(e:React.MouseEvent)=>{
-        setDragging(true);
-        offSet.current={
-            x:e.clientX - position.x,
-            y:e.clientY - position.y,
-        }
+  useEffect(() => {
+    const mouseMoveHandler = (e: MouseEvent) => {
+      if (isDragging) {
+        setPosition({
+          x: e.clientX - offset.x,
+          y: e.clientY - offset.y,
+        });
+
+        onDrag(id, e.clientX - offset.x, e.clientY - offset.y)
+      }
+    };
+
+    const mouseUpHandler = () => {
+      console.log("up called");
+      setIsDragging(false);
+    };
+
+    window.addEventListener("mousemove", mouseMoveHandler);
+    window.addEventListener("mouseup", mouseUpHandler);
+
+    return () => {
+        window.removeEventListener("mousemove", mouseMoveHandler);
+        window.removeEventListener("mouseup", mouseUpHandler)
     }
-    useEffect(()=>{
-        const handleMouseMove=(e:MouseEvent)=>{
-            if(!isDragging) return;
-            setPosition({
-                x: e.clientX - offSet.current.x,
-                y: e.clientY - offSet.current.y
-            });
-            onDrag(e.clientX - offSet.current.x, e.clientY - offSet.current.y);
-        }
-        const handleMouseUp=()=> setDragging(false);
+    
 
-        if(isDragging)
-        {
-            window.addEventListener("mousemove",handleMouseMove)
-            window.addEventListener("mouseup",handleMouseUp)
-        }
-        return ()=>{
-            window.removeEventListener("mousemove",handleMouseMove)
-            window.removeEventListener("mouseup",handleMouseUp)
-        }
-    },[isDragging])
-    return (
-        <>
-        <div 
+  }, [isDragging]);
+  return (
+    <>
+      <div
         className="node"
-        onMouseDown={handleMouseDown}
+          onMouseDown={mouseDownHandler}
         style={{
-            left:position.x,
-            top:position.y
+          left: `${position.x}px`,
+          top: `${position.y}px`,
         }}
-        >
-        <div>ID: {id}</div>
-        <div>{data}</div>
-        <div>Next: {next?next:"null"}</div>
-        </div>
-        </>
-    )
+      >
+        <span>{data}</span>
+      </div>
+    </>
+  );
 }
 
-export default Node;
+export default Nodes;
