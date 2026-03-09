@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './App.css'
-import Nodes from './components/Nodes'
+import Canvas from './components/Canvas'
 
 function App() {
 
   return (
     <>
-      <Nodes />
+      <Canvas />
     </>
   )
 }
