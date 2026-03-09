@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import './Nodes.css'
 
 type Node = {
- id: string;
+ id: number;
   x: number;
   y: number;
   data: string;
-  onDrag: (id: string, n: number, m: number) => void,
+  next:number|null;
+  onDrag: (id: number, n: number, m: number) => void,
 };
-function Nodes({ id, x, y, data, onDrag }: Node) {
+function Nodes({ id, x, y, data,next, onDrag }: Node) {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -59,7 +60,9 @@ function Nodes({ id, x, y, data, onDrag }: Node) {
           top: `${position.y}px`,
         }}
       >
-        <span>{data}</span>
+        <div>ID: {id}</div>
+        <div>{data}</div>
+        <div>Next: {next?next:"NULL"}</div>
       </div>
     </>
   );

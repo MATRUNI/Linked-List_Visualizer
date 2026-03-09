@@ -1,0 +1,18 @@
+.node{
+    background-color: rgb(89, 95, 95);
+    height: auto;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    position: absolute;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.node:hover{
+    /* background: white; */
+    color: black;
+    cursor: grab;
+}
