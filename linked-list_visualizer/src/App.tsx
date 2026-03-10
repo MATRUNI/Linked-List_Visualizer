@@ -1,5 +1,6 @@
 import './App.css'
 import Canvas from './components/Canvas';
+import Input from './components/Input';
 
 function App() {
   const nodes = [
@@ -11,6 +12,7 @@ function App() {
   return (
     <div id='app-div'>
       <Canvas/>
+      <Input />
     </div>
   )
 }

@@ -1,0 +1,12 @@
+.inputDiv {
+    position: fixed;
+    bottom: 10px;
+    width: 100dvw;
+}
+
+input {
+    padding: 10px 30px;
+    color: black;
+    font-size: medium;
+    margin-left: 10px;
+}
