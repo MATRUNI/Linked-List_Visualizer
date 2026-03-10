@@ -2,6 +2,7 @@
     position: fixed;
     bottom: 10px;
     width: 100dvw;
+    background-color: rgb(252, 44, 44);
 }
 
 input {
@@ -9,4 +10,14 @@ input {
     color: black;
     font-size: medium;
     margin-left: 10px;
+}
+
+.btn {
+    /* padding: 10px 15px; */
+    width: 5rem;
+    height: 2rem;
+    background-color: rgb(137, 209, 185);
+    border-radius: 5px;
+    color: black;
+    font-size: medium;
 }

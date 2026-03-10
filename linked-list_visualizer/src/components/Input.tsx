@@ -4,8 +4,10 @@ import './Input.css'
 function Input() {
     const [input, setInput] = useState("")
 
-    const handleSubmit = () => {
-        // if()
+    const handleSubmit = (e:React.SubmitEvent) => {
+        e.preventDefault();
+        const arr = input.split(/[\s,]+/).map(val => val)
+        console.log(arr)
     }
   return (
     <>
@@ -16,7 +18,7 @@ function Input() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
         />
-        <button>Submit</button>
+        <button className='btn'>Submit</button>
       </form>
     </>
   )
