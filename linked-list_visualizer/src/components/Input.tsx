@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import './Input.css'
+import useDataContext from '../context/DataContext'
 
 function Input() {
     const [input, setInput] = useState("")
     let arr:string[] 
-    let nodeData=[]
-    let height=400,width=400;
+    let inputNodeData=[]
+    let height=100,width=100;
     const [error, setError] = useState("");
+    const {nodeData, setNodeData} = useDataContext()
 
+    if(nodeData.length > 0) {
+      height = nodeData[0].x;
+      width = nodeData[0].y;
+    }
     const handleSubmit = (e:React.SubmitEvent) => {
         e.preventDefault();
         if(!input) {
@@ -19,13 +25,16 @@ function Input() {
         {
           arr=input.split(" ");
         }
-        console.log(arr)
+        // console.log(arr)
         for(let i=0;i<arr.length;i++)
         {
-          nodeData.push({id:i,x:height,y:width,data:arr[i],next:i+1===arr.length?null:i+1})
+          inputNodeData.push({id:i,x:height,y:width,data:arr[i],next:i+1===arr.length?null:i+1})
           width+=200
         }
-    }
+        console.log(nodeData)
+        setNodeData(prev => inputNodeData);
+        // console.log(nodeData)
+      }
   return (
     <>
       <form className='inputDiv' onSubmit={handleSubmit}>

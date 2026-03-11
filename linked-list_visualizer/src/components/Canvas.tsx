@@ -2,6 +2,7 @@ import { useState } from "react";
 import Node from "./Nodes";
 import './Canvas.css'
 import DrawLine from "./DrawLine";
+import useDataContext from "../context/DataContext";
 export default function Canvas() {
     // State stores all nodes and their current positions
     const [nodes, setNodes] = useState([
@@ -10,8 +11,13 @@ export default function Canvas() {
         { id: 2, x: 800, y: 400, data: "Node C", next: null },
     ]);
 
+    const {nodeData, setNodeData} = useDataContext()
+    console.log(nodeData)
+
+
+
     const updatePosition = (id: number, x: number, y: number) => {
-        setNodes(prev => (
+        setNodeData(prev => (
             prev.map(item => (
                 item.id === id ? {...item, x, y} : item
             ))
@@ -20,8 +26,10 @@ export default function Canvas() {
     return (
         <div className="canvas" style={{position: "absolute" }}>
         <svg>
-        {nodes.map(node => {
-            const nextNode = node.next?nodes[node.next]: null;
+        
+        {nodeData && nodeData.map(node => {
+            const nextNode = node.next?nodeData[node.next]: null;
+            console.log(node)
               if (!nextNode) return null;
               return (
                 <DrawLine
@@ -38,7 +46,7 @@ export default function Canvas() {
             }
         )}
         </svg>
-        {nodes.map(node => (
+        {nodeData.map(node => (
             <Node key={node.id} {...node} onDrag={(id, x, y) => updatePosition(id, x, y)} />
         ))}
       </div>
