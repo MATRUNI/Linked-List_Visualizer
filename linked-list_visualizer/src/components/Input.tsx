@@ -6,7 +6,11 @@ function Input() {
 
     const handleSubmit = (e:React.SubmitEvent) => {
         e.preventDefault();
-        const arr = input.split(/[\s,]+/).map(val => val)
+        let arr:string[] = input.split(",");
+        if(arr.length===1)
+        {
+          arr=input.split(" ");
+        }
         console.log(arr)
     }
   return (
