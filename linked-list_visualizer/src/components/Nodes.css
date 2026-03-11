@@ -10,8 +10,18 @@
     position: absolute;
     -webkit-user-select: none;
     user-select: none;
+    box-shadow: 0px 0px 15px rgb(255, 255, 255);
+    animation: revolve 2s linear infinite;
 }
 .node:hover{
     background-color: rgb(27, 154, 212);
     box-shadow: 0px 0px 15px rgb(255, 255, 255);
+}
+@keyframes revolve{
+  0% {
+    transform: rotate(0deg) translateX(2px) rotate(0deg); /* Start position */
+  }
+  100% {
+    transform: rotate(360deg) translateX(2px) rotate(-360deg); /* Start position */
+  }
 }
