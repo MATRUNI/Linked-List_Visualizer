@@ -58,6 +58,7 @@ function Nodes({ id, x, y, data,next, onDrag }: Node) {
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
+          cursor: isDragging?"grabbing":"grab"
         }}
       >
         <div>ID: {id}</div>

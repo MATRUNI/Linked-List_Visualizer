@@ -6,14 +6,14 @@ function Input() {
     const [input, setInput] = useState("")
     let arr:string[] 
     let inputNodeData=[]
-    let height=100,width=100;
+    let height=400,width=200;
     const [error, setError] = useState("");
     const {nodeData, setNodeData} = useDataContext()
 
-    if(nodeData.length > 0) {
-      height = nodeData[0].x;
-      width = nodeData[0].y;
-    }
+    // if(nodeData.length > 0) {
+    //   height = nodeData[0].x;
+    //   width = nodeData[0].y;
+    // }
     const handleSubmit = (e:React.SubmitEvent) => {
         e.preventDefault();
         if(!input) {
@@ -28,10 +28,15 @@ function Input() {
         // console.log(arr)
         for(let i=0;i<arr.length;i++)
         {
-          inputNodeData.push({id:i,x:height,y:width,data:arr[i],next:i+1===arr.length?null:i+1})
-          width+=200
+          inputNodeData.push({
+            id:i,
+            x:width,
+            y:height,
+            data:arr[i],
+            next:i+1===arr.length?null:i+1
+          });
+          width+=150
         }
-        console.log(nodeData)
         setNodeData(prev => inputNodeData);
         // console.log(nodeData)
       }

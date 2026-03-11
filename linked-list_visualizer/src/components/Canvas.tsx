@@ -1,18 +1,11 @@
-import { useState } from "react";
 import Node from "./Nodes";
 import './Canvas.css'
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
 export default function Canvas() {
     // State stores all nodes and their current positions
-    const [nodes, setNodes] = useState([
-        { id: 0, x: 400, y: 400, data: "Node A", next: 1},
-        { id: 1, x: 600, y: 400, data: "Node B", next: 2},
-        { id: 2, x: 800, y: 400, data: "Node C", next: null },
-    ]);
 
     const {nodeData, setNodeData} = useDataContext()
-    console.log(nodeData)
 
 
 
@@ -29,7 +22,6 @@ export default function Canvas() {
         
         {nodeData && nodeData.map(node => {
             const nextNode = node.next?nodeData[node.next]: null;
-            console.log(node)
               if (!nextNode) return null;
               return (
                 <DrawLine

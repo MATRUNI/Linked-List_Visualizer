@@ -12,7 +12,6 @@
     user-select: none;
 }
 .node:hover{
-    /* background: white; */
-    color: black;
-    cursor: grab;
+    background-color: rgb(27, 154, 212);
+    box-shadow: 0px 0px 15px rgb(255, 255, 255);
 }
