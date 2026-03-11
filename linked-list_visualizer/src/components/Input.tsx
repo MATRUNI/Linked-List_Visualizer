@@ -3,23 +3,28 @@ import './Input.css'
 
 function Input() {
     const [input, setInput] = useState("")
+    let arr:string[] 
+    let nodeData=[]
+    let height=400,width=400;
     const [error, setError] = useState("");
 
-    const regex = /^(\d+(?:[ ,]\d+)*|[A-Z]+(?:[ ,][A-Z]+)*|[a-z]+(?:[ ,][a-z]+)*)$/
-
     const handleSubmit = (e:React.SubmitEvent) => {
+        e.preventDefault();
         if(!input) {
             setError("Please provide some value first")
             return;
         }
-        // regex.test(input)
-        e.preventDefault();
-        let arr:string[] = input.split(",");
+        arr= input.split(",");
         if(arr.length===1)
         {
           arr=input.split(" ");
         }
         console.log(arr)
+        for(let i=0;i<arr.length;i++)
+        {
+          nodeData.push({id:i,x:height,y:width,data:arr[i],next:i+1===arr.length?null:i+1})
+          width+=200
+        }
     }
   return (
     <>
