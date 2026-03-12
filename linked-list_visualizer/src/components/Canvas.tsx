@@ -3,11 +3,8 @@ import './Canvas.css'
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
 export default function Canvas() {
-    // State stores all nodes and their current positions
 
     const {nodeData, setNodeData} = useDataContext()
-
-
 
     const updatePosition = (id: number, x: number, y: number) => {
         setNodeData(prev => (
@@ -31,8 +28,8 @@ export default function Canvas() {
                   y1={node.y}
                   x2={nextNode!.x}
                   y2={nextNode!.y}
-                  brushColor="red"
-                  lineWidth={5}
+                  brushColor="#00b894"
+                  lineWidth={3}
                 />
               );
             }
