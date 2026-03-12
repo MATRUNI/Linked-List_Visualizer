@@ -6,14 +6,17 @@ function Input() {
     const [input, setInput] = useState("")
     let arr:string[] 
     let inputNodeData=[]
-    let height=400,width=200;
+    const CANVAS_WIDTH = window.innerWidth;
+    // const CANVAS_HEIGHT = window.innerHeight;
+    const NODE_WIDTH = 192;
+    const NODE_HEIGHT = 160;
+    const H_GAP = 50;
+    const V_GAP = 50;
+
+    const NODES_PER_ROW = Math.floor((CANVAS_WIDTH + H_GAP) / (NODE_WIDTH + H_GAP));
     const [error, setError] = useState("");
     const {nodeData, setNodeData} = useDataContext()
-
-    // if(nodeData.length > 0) {
-    //   height = nodeData[0].x;
-    //   width = nodeData[0].y;
-    // }
+    const testData="Break problems into smaller solvable pieces, Read errors carefully before writing more code, Write code for humans first computers second, Test early test often prevent silent failures, Simple solutions scale better than complex ones, Understand the problem before optimizing performance, Version control is your safety net always, Automate repetitive tasks whenever possible, Good naming saves hours of future debugging, Never stop learning new tools and paradigms"
     const handleSubmit = (e:React.SubmitEvent) => {
         e.preventDefault();
         if(!input) {
@@ -25,20 +28,24 @@ function Input() {
         {
           arr=input.split(" ");
         }
-        // console.log(arr)
-        for(let i=0;i<arr.length;i++)
-        {
+
+        for (let i = 0; i < arr.length; i++) {
+          const row = Math.floor(i / NODES_PER_ROW);
+          const col = i % NODES_PER_ROW;
+        
           inputNodeData.push({
-            id:i,
-            x:width,
-            y:height,
-            data:arr[i],
-            next:i+1===arr.length?null:i+1
+            id: i,
+            x: col * (NODE_WIDTH + H_GAP),
+            y: row * (NODE_HEIGHT + V_GAP),
+            data: arr[i],
+            next: i + 1 === arr.length ? null : i + 1
           });
-          width+=150
         }
         setNodeData(prev => inputNodeData);
         // console.log(nodeData)
+      }
+      const putData=()=>{
+        setInput(testData)
       }
   return (
     <>
@@ -51,6 +58,9 @@ function Input() {
         />
         {error && <p className='error'>{error}</p>}
         <button className='btn'>Submit</button>
+        <div>
+          <button className='btn' onClick={putData}>Load Test Data</button>
+        </div>
       </form>
     </>
   )
