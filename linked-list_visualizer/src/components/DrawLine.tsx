@@ -10,7 +10,20 @@ type line = {
 
 function DrawLine({ id, x1, y1, x2, y2, brushColor = "black", lineWidth = 2 }: line) {
 
-  const offset = 80
+  const NODE_WIDTH = 192
+  const NODE_HEIGHT = 160
+
+  const startX = x1 + NODE_WIDTH
+  const startY = y1 + NODE_HEIGHT / 2
+
+  const endX = x2
+  const endY = y2 + NODE_HEIGHT / 2
+
+  const dx = Math.abs(endX - startX)
+  const curve = Math.max(60, dx * 0.5)
+
+  const c1x = startX + curve
+  const c2x = endX - curve
 
   return (
     <path
@@ -18,7 +31,8 @@ function DrawLine({ id, x1, y1, x2, y2, brushColor = "black", lineWidth = 2 }: l
       stroke={brushColor}
       strokeWidth={lineWidth}
       fill="none"
-      d={`M ${x1+50} ${y1+30} C ${x1 + offset} ${y1+30}, ${x2 - offset} ${y2+30}, ${x2 +20} ${y2+30}`}
+      strokeLinecap="round"
+      d={`M ${startX} ${startY} C ${c1x} ${startY}, ${c2x} ${endY}, ${endX} ${endY}`}
     />
   )
 }

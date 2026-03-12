@@ -1,11 +1,12 @@
 .node{
     background-color: rgb(89, 95, 95);
-    height: auto;
-    width: 6rem;
+    height: 10rem;
+    width: 12rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 1rem;
     border-radius: 10px;
     position: absolute;
     -webkit-user-select: none;
