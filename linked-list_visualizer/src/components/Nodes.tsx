@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import './Nodes.css'
 
 type Node = {
- id: number;
+  id: number;
   x: number;
   y: number;
   data: string;
-  next:number|null;
-  onDrag: (id: number, n: number, m: number) => void,
+  next: number | null;
+  onDrag: (id: number, n: number, m: number) => void;
 };
-function Nodes({ id, x, y, data,next, onDrag }: Node) {
+function Nodes({ id, x, y, data, next, onDrag }: Node) {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const mouseDownHandler = (e: React.MouseEvent) => {
-    console.log("Down called");
+    // console.log("Down called");
     setIsDragging(true);
     setOffset({
       x: e.clientX - position.x,
@@ -36,7 +36,7 @@ function Nodes({ id, x, y, data,next, onDrag }: Node) {
     };
 
     const mouseUpHandler = () => {
-      console.log("up called");
+      // console.log("up called");
       setIsDragging(false);
     };
 
@@ -47,23 +47,27 @@ function Nodes({ id, x, y, data,next, onDrag }: Node) {
         window.removeEventListener("mousemove", mouseMoveHandler);
         window.removeEventListener("mouseup", mouseUpHandler)
     }
-    
 
   }, [isDragging]);
+
+  useEffect(() => {
+    setPosition({x, y});
+  }, [x, y]);
+  
   return (
     <>
       <div
         className="node"
-          onMouseDown={mouseDownHandler}
+        onMouseDown={mouseDownHandler}
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
-          cursor: isDragging?"grabbing":"grab"
+          cursor: isDragging ? "grabbing" : "grab",
         }}
       >
         <div>ID: {id}</div>
         <div>{data}</div>
-        <div>Next: {next?next:"NULL"}</div>
+        <div>Next: {next ? next : "NULL"}</div>
       </div>
     </>
   );

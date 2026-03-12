@@ -2,6 +2,9 @@ import Node from "./Nodes";
 import './Canvas.css'
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
+import { useEffect } from "react";
+
+
 export default function Canvas() {
 
     const {nodeData, setNodeData} = useDataContext()
@@ -13,6 +16,7 @@ export default function Canvas() {
             ))
         ))
     }
+
     return (
         <div className="canvas" style={{position: "absolute" }}>
         <svg>

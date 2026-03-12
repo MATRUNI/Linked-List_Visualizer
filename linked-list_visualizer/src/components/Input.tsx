@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Input.css'
 import useDataContext from '../context/DataContext'
 
@@ -47,6 +47,7 @@ function Input() {
       const putData=()=>{
         setInput(testData)
       }
+
   return (
     <>
       <form className='inputDiv' onSubmit={handleSubmit}>
