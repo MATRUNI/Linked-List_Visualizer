@@ -17,7 +17,6 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
   const {selNodeId, setSelNodeId} = useDataContext();
 
   const mouseDownHandler = (e: React.MouseEvent) => {
-    // console.log("Down called");
     setIsDragging(true);
     setOffset({
       x: e.clientX - position.x,
@@ -38,7 +37,6 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
     };
 
     const mouseUpHandler = () => {
-      // console.log("up called");
       setIsDragging(false);
     };
 

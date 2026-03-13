@@ -68,3 +68,26 @@ input:focus {
 .btn:active {
     transform: scale(0.96); /* Subtle click feedback */
 }
+.clear-btn{
+    height: 3.2rem;
+    width: 2rem;
+    background-color: #00b894;
+    border: none;
+    border-radius: 6px;
+    
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.input-wrapper {
+  position: relative;
+  width: 20rem;
+  display: flex;
+}
+.input-wrapper input {
+  padding-right: 3rem
+}
