@@ -2,7 +2,6 @@ import Node from "./Nodes";
 import './Canvas.css'
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
-import { useEffect } from "react";
 
 
 export default function Canvas() {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Input.css'
 import useDataContext from '../context/DataContext'
 
@@ -47,16 +47,21 @@ function Input() {
       const putData=()=>{
         setInput(testData)
       }
-
+      const clearInput=()=>{
+        setInput("")
+      }
   return (
     <>
       <form className='inputDiv' onSubmit={handleSubmit}>
-        <input 
-            type="text" 
-            placeholder='Enter val (space or comma seperated)'
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-        />
+        <div className="input-wrapper">
+          <input
+              type="text"
+              placeholder='Enter val (space or comma seperated)'
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+          />
+          {input && (<button onClick={clearInput} className='clear-btn'>X</button>)}
+        </div>
         {error && <p className='error'>{error}</p>}
         <button className='btn'>Submit</button>
         <div>

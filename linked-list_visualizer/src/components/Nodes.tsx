@@ -15,7 +15,6 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const mouseDownHandler = (e: React.MouseEvent) => {
-    // console.log("Down called");
     setIsDragging(true);
     setOffset({
       x: e.clientX - position.x,
@@ -36,7 +35,6 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
     };
 
     const mouseUpHandler = () => {
-      // console.log("up called");
       setIsDragging(false);
     };
 
