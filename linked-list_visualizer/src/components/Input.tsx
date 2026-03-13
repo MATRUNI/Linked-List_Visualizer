@@ -4,6 +4,9 @@ import useDataContext from '../context/DataContext'
 
 function Input() {
     const [input, setInput] = useState("")
+    const [error, setError] = useState("");
+    const {nodeData, setNodeData, selNodeId, setSelNodeId} = useDataContext()
+
     let arr:string[] 
     let inputNodeData=[]
     const CANVAS_WIDTH = window.innerWidth;
@@ -14,15 +17,16 @@ function Input() {
     const V_GAP = 50;
 
     const NODES_PER_ROW = Math.floor((CANVAS_WIDTH + H_GAP) / (NODE_WIDTH + H_GAP));
-    const [error, setError] = useState("");
-    const {nodeData, setNodeData} = useDataContext()
     const testData="Break problems into smaller solvable pieces, Read errors carefully before writing more code, Write code for humans first computers second, Test early test often prevent silent failures, Simple solutions scale better than complex ones, Understand the problem before optimizing performance, Version control is your safety net always, Automate repetitive tasks whenever possible, Good naming saves hours of future debugging, Never stop learning new tools and paradigms"
+
     const handleSubmit = (e:React.SubmitEvent) => {
         e.preventDefault();
         if(!input) {
             setError("Please provide some value first")
             return;
         }
+        setError("")
+        setSelNodeId(null);
         arr= input.split(",");
         if(arr.length===1)
         {
@@ -47,6 +51,16 @@ function Input() {
       const putData=()=>{
         setInput(testData)
       }
+      const deleteNode = () => {
+        // console.log(selNodeId)
+        if(selNodeId) {
+          console.log(nodeData)
+          setNodeData(prev => prev.filter(item => (item.id !== selNodeId)))
+        }
+        else {
+          return;
+        }
+      }
 
   return (
     <>
@@ -61,6 +75,9 @@ function Input() {
         <button className='btn'>Submit</button>
         <div>
           <button className='btn' onClick={putData}>Load Test Data</button>
+        </div>
+        <div>
+          <button className='btn' onClick={deleteNode}>Delete Node</button>
         </div>
       </form>
     </>

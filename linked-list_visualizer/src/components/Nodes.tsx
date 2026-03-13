@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './Nodes.css'
+import useDataContext from "../context/DataContext";
 
 type Node = {
   id: number;
@@ -13,6 +14,7 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const {selNodeId, setSelNodeId} = useDataContext();
 
   const mouseDownHandler = (e: React.MouseEvent) => {
     // console.log("Down called");
@@ -63,7 +65,9 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
           left: `${position.x}px`,
           top: `${position.y}px`,
           cursor: isDragging ? "grabbing" : "grab",
+          backgroundColor: selNodeId == id ? "red" : "rgba(45, 52, 54, 0.9)",
         }}
+        onClick={() => setSelNodeId(id)}
       >
         <div>ID: {id}</div>
         <div>{data}</div>
