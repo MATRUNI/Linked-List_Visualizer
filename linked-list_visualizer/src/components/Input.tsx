@@ -61,6 +61,9 @@ function Input() {
           return;
         }
       }
+      const clearInput=()=>{
+        setInput("")
+      }
 
   return (
     <>
