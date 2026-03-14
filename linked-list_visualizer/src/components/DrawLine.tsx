@@ -1,3 +1,4 @@
+import './Drawline.css'
 type line = {
   id: number
   x1: number
@@ -31,10 +32,7 @@ function DrawLine({ id, x1, y1, x2, y2, brushColor = "#00b894", lineWidth = 3 }:
       strokeWidth={lineWidth}
       fill="none"
       strokeLinecap="round"
-      style={{
-        filter: `drop-shadow(0px 0px 5px rgba(0, 184, 148, 0.6))`,
-        transition: 'stroke 0.3s ease'
-      }}
+      className='animated-line'
       d={`M ${startX} ${startY} C ${c1x} ${startY}, ${c2x} ${endY}, ${endX} ${endY}`}
     />
   );

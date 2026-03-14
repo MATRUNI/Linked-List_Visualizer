@@ -2,11 +2,13 @@ import Node from "./Nodes";
 import './Canvas.css'
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
+import { useState,useEffect } from "react";
 
 
 export default function Canvas() {
 
     const {nodeData, setNodeData} = useDataContext()
+    const [visibleNodes, setVisibleNodes] = useState<number[]>([]);
 
     const updatePosition = (id: number, x: number, y: number) => {
         setNodeData(prev => (
@@ -15,14 +17,25 @@ export default function Canvas() {
             ))
         ))
     }
+    useEffect(() => {
+      nodeData.forEach((node, index) => {
+
+        setTimeout(() => {
+          setVisibleNodes(prev => [...prev, node.id]);
+        }, index*200);
+      });
+    }, [nodeData]);
 
     return (
         <div className="canvas" style={{position: "absolute" }}>
         <svg>
         
         {nodeData && nodeData.map(node => {
-            const nextNode = node.next?nodeData[node.next]: null;
+              const nextNode = node.next !== null ? nodeData[node.next] : null;
+                      
               if (!nextNode) return null;
+              if (!visibleNodes.includes(node.id)) return null;
+              if (!visibleNodes.includes(nextNode.id)) return null;
               return (
                 <DrawLine
                   key={node.id}
@@ -38,14 +51,17 @@ export default function Canvas() {
             }
         )}
         </svg>
-        {nodeData.map((node,index) => (
-            <Node 
-            key={node.id}
-            {...node} 
-            isHead={index===0}
-            isTail={index===nodeData.length-1} 
-            onDrag={(id, x, y) => updatePosition(id, x, y)} />
-        ))}
+        {nodeData.map((node,index) => {
+            if (!visibleNodes.includes(node.id)) return null;
+            return (
+                <Node 
+                key={node.id}
+                {...node} 
+                isHead={index===0}
+                isTail={index===nodeData.length-1} 
+                onDrag={(id, x, y) => updatePosition(id, x, y)} />
+            )
+        })}
       </div>
   );
 }
