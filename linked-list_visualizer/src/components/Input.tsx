@@ -78,7 +78,7 @@ function Input() {
           {input && (<button onClick={clearInput} className='clear-btn'>X</button>)}
         </div>
         {error && <p className='error'>{error}</p>}
-        <button className='btn'>Submit</button>
+        <button className='btn'>Make Nodes</button>
         <div>
           <button className='btn' onClick={putData}>Load Test Data</button>
         </div>
