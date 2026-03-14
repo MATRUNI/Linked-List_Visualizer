@@ -7,10 +7,12 @@ type Node = {
   x: number;
   y: number;
   data: string;
+  isHead:boolean;
+  isTail:boolean;
   next: number | null;
   onDrag: (id: number, n: number, m: number) => void;
 };
-function Nodes({ id, x, y, data, next, onDrag }: Node) {
+function Nodes({ id, x, y, data,isHead,isTail, next, onDrag }: Node) {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -63,7 +65,14 @@ function Nodes({ id, x, y, data, next, onDrag }: Node) {
           left: `${position.x}px`,
           top: `${position.y}px`,
           cursor: isDragging ? "grabbing" : "grab",
-          backgroundColor: selNodeId == id ? "red" : "rgba(45, 52, 54, 0.9)",
+          backgroundColor: 
+          selNodeId == id 
+          ? "red" 
+          :isHead
+          ?"#0984e3"
+          :isTail
+          ?"#e17055"
+          : "rgba(45, 52, 54, 0.9)",
         }}
         onClick={() => setSelNodeId(id)}
       >

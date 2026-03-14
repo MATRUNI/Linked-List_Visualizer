@@ -38,8 +38,13 @@ export default function Canvas() {
             }
         )}
         </svg>
-        {nodeData.map(node => (
-            <Node key={node.id} {...node} onDrag={(id, x, y) => updatePosition(id, x, y)} />
+        {nodeData.map((node,index) => (
+            <Node 
+            key={node.id}
+            {...node} 
+            isHead={index===0}
+            isTail={index===nodeData.length-1} 
+            onDrag={(id, x, y) => updatePosition(id, x, y)} />
         ))}
       </div>
   );
