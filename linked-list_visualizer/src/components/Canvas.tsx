@@ -24,7 +24,7 @@ export default function Canvas() {
           setVisibleNodes(prev => [...prev, node.id]);
         }, index*200);
       });
-    }, [nodeData]);
+    }, [nodeData.map(n=>n.data).join(",")]);
 
     return (
         <div className="canvas" style={{position: "absolute" }}>
