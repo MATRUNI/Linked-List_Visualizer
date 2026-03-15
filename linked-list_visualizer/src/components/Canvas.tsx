@@ -18,8 +18,8 @@ export default function Canvas() {
         ))
     }
     useEffect(() => {
+      setVisibleNodes([])
       nodeData.forEach((node, index) => {
-
         setTimeout(() => {
           setVisibleNodes(prev => [...prev, node.id]);
         }, index*200);
