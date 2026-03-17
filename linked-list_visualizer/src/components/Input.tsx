@@ -48,13 +48,14 @@ function Input() {
       const col = i % NODES_PER_ROW;
 
       inputNodeData.push({
-        id: i,
+        id: Date.now()+i,
         x: col * (NODE_WIDTH + H_GAP),
         y: row * (NODE_HEIGHT + V_GAP),
         data: arr[i],
         next: i + 1 === arr.length ? null : i + 1,
       });
     }
+    console.log(inputNodeData)
     setNodeData((prev) => inputNodeData);
     setInput("");
   };
@@ -66,16 +67,13 @@ function Input() {
   // write the logic for delete node but not working properly
   const deleteNode = () => {
     // console.log(selNodeId)
+    console.log(nodeData);
     if (selNodeId) {
-      console.log(nodeData);
       let deletedData : NodeData[] = []
 
       let i = 0;
       for(let i=0; i<nodeData.length; i++) {
-        console.log(i)
-        console.log(nodeData[i])
         if(nodeData[i].id === selNodeId) {
-          console.log(nodeData[i]);
           continue;
         }
         if(nodeData[i] && nodeData[i].next === selNodeId) {
