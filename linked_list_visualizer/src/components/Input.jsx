@@ -105,7 +105,7 @@ function Input() {
       <button className="btn">Make Nodes</button>
 
       <div>
-        <button type="button" className="btn" onClick={putData}>
+        <button className="btn" onClick={putData}>
           Load Test Data
         </button>
       </div>
