@@ -6,7 +6,7 @@ import BeforeAfterToggle from "./BeforeAfterToggle";
 function Input() {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-  const { nodeData, setNodeData, selNodeId, setSelNodeId } = useDataContext();
+  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes } = useDataContext();
 
   const CANVAS_WIDTH = window.innerWidth;
   const NODE_WIDTH = 192;
@@ -85,9 +85,6 @@ function Input() {
     setInput("");
   };
 
-  const handleToggle = () => {
-    setIsOn(!isOn)
-  }
 
   const handleAppend = () => {
     if (!selNodeId) {
@@ -105,8 +102,19 @@ function Input() {
       arr = input.split(" ");
     }
 
-    const newNodeData = createNodeDataArray(arr)
-
+    const newNodeData =[];
+    nodeData.forEach((element,index) => {
+      if(selNodeId===element.id)
+      {
+        let nodes=createNodeDataArray(arr);
+        nodeData[index-1].next=nodes[0].id;
+        nodes[nodes.length-1].next=element.id;
+        newNodeData.push(element,...nodes);
+      }
+      else newNodeData.push(element);
+      
+    });
+    setNodeData(newNodeData);
     console.log(newNodeData);
   }
 
@@ -133,6 +141,15 @@ function Input() {
   return (
     <>
       <div className="inputDiv">
+        <div className="btnDiv"
+        style={{
+            opacity:hasNodes?1:0.8,
+            pointerEvents: hasNodes?'all':'none'
+          }}>
+          <button className="btn" onClick={handleAppend}>
+            Append Node
+          </button>
+        </div>
         <form className="" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <input
@@ -154,18 +171,17 @@ function Input() {
               Load Test Data
             </button>
           </div>
-          <div>
+          <div
+          style={{
+            opacity:hasNodes?1:0.8,
+            pointerEvents: hasNodes?'all':'none'
+          }}>
             <button type="button" className="btn" onClick={deleteNode}>
               Delete Node
             </button>
           </div>
           <BeforeAfterToggle />
         </form>
-        <div className="btnDiv">
-          <button className="btn" onClick={handleAppend}>
-            Append Node
-          </button>
-        </div>
       </div>
     </>
   );
