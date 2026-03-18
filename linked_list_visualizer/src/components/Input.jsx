@@ -99,14 +99,14 @@ function Input() {
     }
     setError("");
     setSelNodeId(null);
-    
+
     let arr = input.split(",");
     if (arr.length === 1) {
       arr = input.split(" ");
     }
 
     const newNodeData = createNodeDataArray(arr)
-    
+
     console.log(newNodeData);
   }
 
@@ -132,42 +132,41 @@ function Input() {
 
   return (
     <>
-      <form className="inputDiv" onSubmit={handleSubmit}>
-        <button className="btn" onClick={handleAppend}>
-          Append Node
-        </button>
-        <div className="input-wrapper">
-          <input
-            type="text"
-            placeholder="Enter val (space or comma seperated)"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          {input && (
-            <button type="button" onClick={clearInput} className="clear-btn">
-              X
+      <div className="inputDiv">
+        <form className="" onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              placeholder="Enter val (space or comma seperated)"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            {input && (
+              <button type="button" onClick={clearInput} className="clear-btn">
+                X
+              </button>
+            )}
+          </div>
+          {error && <p className="error">{error}</p>}
+          <button className="btn">Make Nodes</button>
+          <div>
+            <button className="btn" onClick={putData}>
+              Load Test Data
             </button>
-          )}
-        </div>
-
-        {error && <p className="error">{error}</p>}
-
-        <button className="btn">Make Nodes</button>
-
-        <div>
-          <button className="btn" onClick={putData}>
-            Load Test Data
+          </div>
+          <div>
+            <button type="button" className="btn" onClick={deleteNode}>
+              Delete Node
+            </button>
+          </div>
+          <BeforeAfterToggle />
+        </form>
+        <div className="btnDiv">
+          <button className="btn" onClick={handleAppend}>
+            Append Node
           </button>
         </div>
-
-        <div>
-          <button type="button" className="btn" onClick={deleteNode}>
-            Delete Node
-          </button>
-        </div>
-
-        <BeforeAfterToggle />
-      </form>
+      </div>
     </>
   );
 }
