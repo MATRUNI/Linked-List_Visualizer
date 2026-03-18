@@ -90,6 +90,7 @@ function Input() {
   }
 
   const handleAppend = () => {
+    console.log("handleAppend clicked")
     if (!selNodeId) {
       return;
     }
@@ -108,7 +109,26 @@ function Input() {
     const newNodeData = createNodeDataArray(arr)
 
     console.log(newNodeData);
-  }
+
+    const updated = nodeData
+      .map((node) => {
+        if(node.next === selNodeId) {
+          let temp = node.next;
+          node.next = newNodeData[0].id;
+          newNodeData[newNodeData.length - 1].next = temp;
+          return {
+            ...node, 
+            next: newNodeData[0] ? newNodeData[0].next : selNodeId,
+          }
+        }
+        return node;
+      })
+
+      console.log(updated);
+      setNodeData(updated);
+
+      setInput("");
+    }
 
   // create separate function to create inputData linked list
   const createNodeDataArray = (arr) => {
@@ -133,6 +153,12 @@ function Input() {
   return (
     <>
       <div className="inputDiv">
+        <div className="btnDiv">
+          <button className="btn" onClick={handleAppend}>
+            Append Node
+          </button>
+        </div>
+
         <form className="" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <input
@@ -161,11 +187,7 @@ function Input() {
           </div>
           <BeforeAfterToggle />
         </form>
-        <div className="btnDiv">
-          <button className="btn" onClick={handleAppend}>
-            Append Node
-          </button>
-        </div>
+        
       </div>
     </>
   );
