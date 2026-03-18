@@ -54,18 +54,19 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
         top: `${position.y}px`,
         cursor: isDragging ? "grabbing" : "grab",
         backgroundColor:
-          selNodeId === id
-            ? "red"
-            : isHead
+            isHead
             ? "#0984e3"
             : isTail
             ? "#e17055"
             : "rgba(45, 52, 54, 0.9)",
+        border:selNodeId=== id ? "2px solid #55efc4" : "2px solid transparent",
+        outline: selNodeId === id ? "3px solid #55efc4" : "none", 
+        boxShadow: selNodeId === id ? "0 0 15px rgb(255, 255, 255)" : "none",
       }}
     >
-      <div>ID: {id}</div>
-      <div>{data}</div>
-      <div>Next: {next ? next : "NULL"}</div>
+      <div id="ids">ID: {id}</div>
+      <div id="data">{data}</div>
+      <div id="next">Next: {next ? next : "NULL"}</div>
     </div>
   );
 }

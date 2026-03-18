@@ -9,9 +9,9 @@ function Input() {
 
   const CANVAS_WIDTH = window.innerWidth;
   const NODE_WIDTH = 192;
-  const NODE_HEIGHT = 160;
-  const H_GAP = 50;
-  const V_GAP = 50;
+  const NODE_HEIGHT = 240;
+  const H_GAP = 100;
+  const V_GAP = 100;
 
   const NODES_PER_ROW = Math.floor(
     (CANVAS_WIDTH + H_GAP) / (NODE_WIDTH + H_GAP)
