@@ -5,6 +5,7 @@ export const DataContext = createContext(null);
 export function DataProvider({ children }) {
   const [nodeData, setNodeData] = useState([]);
   const [selNodeId, setSelNodeId] = useState(null);
+  const [hasNodes, setHasNodes]=useState(false);
 
   return (
     <DataContext.Provider
@@ -13,6 +14,8 @@ export function DataProvider({ children }) {
         setNodeData,
         selNodeId,
         setSelNodeId,
+        hasNodes,
+        setHasNodes
       }}
     >
       {children}
