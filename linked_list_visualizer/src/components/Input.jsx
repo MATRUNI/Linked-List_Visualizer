@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Input.css";
 import useDataContext from "../context/DataContext";
+import BeforeAfterToggle from "./BeforeAfterToggle";
 
 function Input() {
   const [input, setInput] = useState("");
@@ -84,8 +85,13 @@ function Input() {
     setInput("");
   };
 
+  const handleToggle = () => {
+    setIsOn(!isOn)
+  }
+
   return (
-    <form className="inputDiv" onSubmit={handleSubmit}>
+    <>
+      <form className="inputDiv" onSubmit={handleSubmit}>
       <div className="input-wrapper">
         <input
           type="text"
@@ -115,7 +121,10 @@ function Input() {
           Delete Node
         </button>
       </div>
+
+      <BeforeAfterToggle />
     </form>
+    </>
   );
 }
 
