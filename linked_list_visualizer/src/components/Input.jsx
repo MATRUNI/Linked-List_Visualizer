@@ -6,7 +6,7 @@ import BeforeAfterToggle from "./BeforeAfterToggle";
 function Input() {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-  const { nodeData, setNodeData, selNodeId, setSelNodeId } = useDataContext();
+  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes } = useDataContext();
 
   const CANVAS_WIDTH = window.innerWidth;
   const NODE_WIDTH = 192;
@@ -85,12 +85,8 @@ function Input() {
     setInput("");
   };
 
-  const handleToggle = () => {
-    setIsOn(!isOn)
-  }
 
   const handleAppend = () => {
-    console.log("handleAppend clicked")
     if (!selNodeId) {
       return;
     }
@@ -106,29 +102,20 @@ function Input() {
       arr = input.split(" ");
     }
 
-    const newNodeData = createNodeDataArray(arr)
-
-    console.log(newNodeData);
-
-    const updated = nodeData
-      .map((node) => {
-        if(node.next === selNodeId) {
-          let temp = node.next;
-          node.next = newNodeData[0].id;
-          newNodeData[newNodeData.length - 1].next = temp;
-          return {
-            ...node, 
-            next: newNodeData[0] ? newNodeData[0].next : selNodeId,
-          }
-        }
-        return node;
-      })
-
-      console.log(updated);
-      setNodeData(updated);
-
-      setInput("");
-    }
+    const newNodeData =[];
+    nodeData.forEach((element,index) => {
+      if(selNodeId===element.id)
+      {
+        let nodes=createNodeDataArray(arr);
+        nodeData[index-1].next=nodes[0].id;
+        nodes[nodes.length-1].next=element.id;
+        newNodeData.push(element,...nodes);
+      }
+      else newNodeData.push(element);
+      
+    });
+    setNodeData(newNodeData);
+  }
 
   // create separate function to create inputData linked list
   const createNodeDataArray = (arr) => {
@@ -153,12 +140,15 @@ function Input() {
   return (
     <>
       <div className="inputDiv">
-        <div className="btnDiv">
+        <div className="btnDiv"
+        style={{
+            opacity:hasNodes?1:0.8,
+            pointerEvents: hasNodes?'all':'none'
+          }}>
           <button className="btn" onClick={handleAppend}>
             Append Node
           </button>
         </div>
-
         <form className="" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <input
@@ -180,14 +170,17 @@ function Input() {
               Load Test Data
             </button>
           </div>
-          <div>
+          <div
+          style={{
+            opacity:hasNodes?1:0.8,
+            pointerEvents: hasNodes?'all':'none'
+          }}>
             <button type="button" className="btn" onClick={deleteNode}>
               Delete Node
             </button>
           </div>
           <BeforeAfterToggle />
         </form>
-        
       </div>
     </>
   );
