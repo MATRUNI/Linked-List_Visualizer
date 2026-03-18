@@ -89,41 +89,85 @@ function Input() {
     setIsOn(!isOn)
   }
 
+  const handleAppend = () => {
+    if (!selNodeId) {
+      return;
+    }
+    else if (!input) {
+      setError("Please provide some value first");
+      return;
+    }
+    setError("");
+    setSelNodeId(null);
+    
+    let arr = input.split(",");
+    if (arr.length === 1) {
+      arr = input.split(" ");
+    }
+
+    const newNodeData = createNodeDataArray(arr)
+    
+    console.log(newNodeData);
+  }
+
+  // create separate function to create inputData linked list
+  const createNodeDataArray = (arr) => {
+    const inputNodeData = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      const row = Math.floor(i / NODES_PER_ROW);
+      const col = i % NODES_PER_ROW;
+
+      inputNodeData.push({
+        id: Date.now() + i,
+        x: col * (NODE_WIDTH + H_GAP),
+        y: row * (NODE_HEIGHT + V_GAP),
+        data: arr[i],
+        next: i + 1 === arr.length ? null : Date.now() + i + 1,
+      });
+    }
+
+    return inputNodeData;
+  }
+
   return (
     <>
       <form className="inputDiv" onSubmit={handleSubmit}>
-      <div className="input-wrapper">
-        <input
-          type="text"
-          placeholder="Enter val (space or comma seperated)"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        {input && (
-          <button type="button" onClick={clearInput} className="clear-btn">
-            X
+        <button className="btn" onClick={handleAppend}>
+          Append Node
+        </button>
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder="Enter val (space or comma seperated)"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          {input && (
+            <button type="button" onClick={clearInput} className="clear-btn">
+              X
+            </button>
+          )}
+        </div>
+
+        {error && <p className="error">{error}</p>}
+
+        <button className="btn">Make Nodes</button>
+
+        <div>
+          <button className="btn" onClick={putData}>
+            Load Test Data
           </button>
-        )}
-      </div>
+        </div>
 
-      {error && <p className="error">{error}</p>}
+        <div>
+          <button type="button" className="btn" onClick={deleteNode}>
+            Delete Node
+          </button>
+        </div>
 
-      <button className="btn">Make Nodes</button>
-
-      <div>
-        <button className="btn" onClick={putData}>
-          Load Test Data
-        </button>
-      </div>
-
-      <div>
-        <button type="button" className="btn" onClick={deleteNode}>
-          Delete Node
-        </button>
-      </div>
-
-      <BeforeAfterToggle />
-    </form>
+        <BeforeAfterToggle />
+      </form>
     </>
   );
 }
