@@ -1,14 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './BeforeAfterToggle.css'
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
+import useDataContext from "../context/DataContext";
 
 export default function BeforeAfterToggle() {
   const [isAfter, setIsAfter] = useState(false);
-  const {seleNodeId, setSelNodeId} = useState()
+  const {seleNodeId, setSelNodeId} = useState();
 
+  const {nodeData ,hasNodes,setHasNodes}=useDataContext();
+  useEffect(()=>{
+    if(nodeData.length!==0)
+    {
+      setHasNodes(true)
+    }
+    else
+      setHasNodes(false);
+  },[nodeData]);
+
+  
   return (
-    <div className="container">
+    <div className="container"
+    style={{
+      opacity: hasNodes?1:0.8,
+      pointerEvents: hasNodes?"all":"none"
+    }}>
       <div
         className="toggle"
         style={{
@@ -34,41 +50,3 @@ export default function BeforeAfterToggle() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "10px",
-    marginTop: "50px",
-  },
-  toggle: {
-    width: "120px",
-    height: "50px",
-    borderRadius: "50px",
-    cursor: "pointer",
-    position: "relative",
-    transition: "background-color 0.4s ease",
-    display: "flex",
-    alignItems: "center",
-    padding: "5px",
-  },
-  slider: {
-    width: "50px",
-    height: "40px",
-    borderRadius: "40px",
-    backgroundColor: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "10px",
-    fontWeight: "bold",
-    transition: "transform 0.4s ease, box-shadow 0.3s ease",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-  },
-  text: {
-    fontSize: "18px",
-    fontWeight: "600",
-  },
-};
