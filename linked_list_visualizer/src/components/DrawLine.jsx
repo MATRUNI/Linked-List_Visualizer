@@ -12,7 +12,7 @@ function DrawLine({
   const NODE_WIDTH = 160;
   const NODE_HEIGHT = 192;
 
-  const startX = x1 + NODE_WIDTH;
+  const startX = x1 + NODE_WIDTH + 75;
   const startY = y1 + (NODE_HEIGHT / 2);
 
   const endX = x2 + 5;
