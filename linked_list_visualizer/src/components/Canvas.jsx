@@ -35,7 +35,9 @@ export default function Canvas() {
 
   const handleZoom =(e)=>{
     e.preventDefault();
-    
+    if(!e.ctrlKey) {
+      return;
+    }
     const zoomFactor = 0.1;
     const oldScale = scale;
     const newScale =
