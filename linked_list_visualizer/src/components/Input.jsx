@@ -103,15 +103,15 @@ function Input() {
     }
 
     const newNodeData =[];
-    nodeData.forEach((element,index) => {
+    nodeData.forEach(element => {
       if(selNodeId===element.id)
       {
         let nodes=createNodeDataArray(arr);
-        nodeData[index-1].next=nodes[0].id;
+        newNodeData[newNodeData.length-1].next=nodes[0].id;
         nodes[nodes.length-1].next=element.id;
-        newNodeData.push(element,...nodes);
+        newNodeData.push(...nodes);
       }
-      else newNodeData.push(element);
+      newNodeData.push(element);
       
     });
     setNodeData(newNodeData);
