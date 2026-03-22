@@ -38,14 +38,14 @@ export default function BeforeAfterToggle() {
             transform: isAfter ? "translateX(60px)" : "translateX(0px)",
           }}
         >
-          {isAfter ? <GoArrowLeft /> : <GoArrowRight />}
+          {isAfter ? <GoArrowRight />: <GoArrowLeft />}
         </div>
       </div>
 
       <p
         className="text"
       >
-        {isAfter ? "After State" : "Before State"}
+        {isAfter ? "After Node" : "Before Node"}
       </p>
     </div>
   );
