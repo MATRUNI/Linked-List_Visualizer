@@ -6,7 +6,7 @@ import BeforeAfterToggle from "./BeforeAfterToggle";
 function Input() {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes } = useDataContext();
+  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes, isAfter, setIsAfter } = useDataContext();
 
   const CANVAS_WIDTH = window.innerWidth;
   const NODE_WIDTH = 192;
@@ -107,10 +107,22 @@ function Input() {
       if(selNodeId===element.id)
       {
         let nodes=createNodeDataArray(arr);
-        newNodeData[newNodeData.length-1].next=nodes[0].id;
-        nodes[nodes.length-1].next=element.id;
-        newNodeData.push(...nodes);
+        if(isAfter)
+        {
+          nodes[nodes.length-1].next=element.next;
+          element.next=nodes[0].id;
+          newNodeData.push(element);
+          newNodeData.push(...nodes);
+        }
+        else
+        {
+          newNodeData[newNodeData.length-1].next=nodes[0].id;
+          nodes[nodes.length-1].next=element.id;
+          newNodeData.push(...nodes);
+          newNodeData.push(element);
+        }
       }
+      else
       newNodeData.push(element);
       
     });

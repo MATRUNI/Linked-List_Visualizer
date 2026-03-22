@@ -5,10 +5,8 @@ import { GoArrowRight } from "react-icons/go";
 import useDataContext from "../context/DataContext";
 
 export default function BeforeAfterToggle() {
-  const [isAfter, setIsAfter] = useState(false);
-  const {seleNodeId, setSelNodeId} = useState();
 
-  const {nodeData ,hasNodes,setHasNodes}=useDataContext();
+  const {nodeData ,hasNodes,setHasNodes,isAfter,setIsAfter}=useDataContext();
   useEffect(()=>{
     if(nodeData.length!==0)
     {
