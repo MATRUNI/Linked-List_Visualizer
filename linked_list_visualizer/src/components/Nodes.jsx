@@ -9,11 +9,14 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
   const { selNodeId, setSelNodeId } = useDataContext();
 
   const mouseDownHandler = (e) => {
+    e.preventDefault();
     setIsDragging(true);
-    setOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
+  const rect = e.currentTarget.getBoundingClientRect();
+
+  setOffset({
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top,
+  });
   };
 
   useEffect(() => {
@@ -50,8 +53,8 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
       onMouseDown={mouseDownHandler}
       onClick={() => setSelNodeId(id)}
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        left: `${x}px`,
+        top: `${y}px`,
         cursor: isDragging ? "grabbing" : "grab",
         backgroundColor:
             isHead

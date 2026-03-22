@@ -7,11 +7,18 @@ import { useState, useEffect } from "react";
 export default function Canvas() {
   const { nodeData, setNodeData } = useDataContext();
   const [visibleNodes, setVisibleNodes] = useState([]);
+  const [pan,setPan]=useState({x:0, y:0});
+  const [scale,setScale]=useState(1);
 
   const updatePosition = (id, x, y) => {
+    const worldX = (x - pan.x) / scale;
+    const worldY = (y - pan.y) / scale;
     setNodeData((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, x, y } : item
+        item.id === id ? { 
+          ...item, 
+          x: worldX, 
+          y: worldY } : item
       )
     );
   };
@@ -26,8 +33,41 @@ export default function Canvas() {
     });
   }, [nodeData.map((n) => n.data).join(",")]);
 
+  const handleZoom =(e)=>{
+    e.preventDefault();
+    
+    const zoomFactor = 0.1;
+    const oldScale = scale;
+    const newScale =
+      e.deltaY < 0
+        ? Math.min(scale + zoomFactor, 3)
+        : Math.max(scale - zoomFactor, 0.2);
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const newPan = {
+      x: pan.x - (mouseX - pan.x) * (newScale / oldScale - 1),
+      y: pan.y - (mouseY - pan.y) * (newScale / oldScale - 1),
+    };
+  
+    setPan(newPan);
+    setScale(newScale);
+  }
+
   return (
-    <div className="canvas" style={{ position: "absolute" }}>
+    <div className="canvas" onWheel={handleZoom} style={{ position: "absolute" }}>
+      <div
+      className="world"
+      style={{
+        height:'inherit',
+        width:'inherit',
+        transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+        transformOrigin:'0 0'
+      }}
+      >
+
       <svg>
         {nodeData &&
           nodeData.map((node) => {
@@ -68,6 +108,7 @@ export default function Canvas() {
           />
         );
       })}
+      </div>
     </div>
   );
 }
