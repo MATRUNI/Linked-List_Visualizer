@@ -35,7 +35,7 @@ export default function Canvas() {
 
   const handleZoom =(e)=>{
     e.preventDefault();
-    if(!e.ctrlKey) {
+    if(!e.shiftKey) {
       return;
     }
     const zoomFactor = 0.1;
@@ -91,7 +91,7 @@ export default function Canvas() {
                 x2={nextNode.x}
                 y2={nextNode.y}
                 brushColor="#00b894"
-                lineWidth={3}
+                lineWidth={4/scale}
               />
             );
           })}

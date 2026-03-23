@@ -34,10 +34,10 @@
   box-shadow: 0 2px 8px rgba(0,0,0,1);
 }
 .sliderLeft:hover {
-  box-shadow: 0 0px 4px 3px rgb(223, 165, 91);
+  box-shadow: 0 0px 10px 5px rgb(255, 222, 180);
 }
 .sliderRight:hover {
-  box-shadow: 0 0px 4px 3px rgb(90, 155, 230);
+  box-shadow: 0 0px 10px 5px rgb(99, 172, 255);
 }
 
 .text {

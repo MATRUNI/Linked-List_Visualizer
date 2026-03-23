@@ -26,7 +26,7 @@ export default function BeforeAfterToggle() {
       <div
         className="toggle"
         style={{
-          backgroundColor: isAfter ? "#0984e3" : "#e17055",
+          backgroundColor: isAfter ? "#0984e3" : "#ff8465",
         }}
         onClick={() => setIsAfter(!isAfter)}
       >

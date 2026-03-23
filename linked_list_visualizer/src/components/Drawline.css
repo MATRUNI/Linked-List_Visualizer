@@ -5,7 +5,9 @@
   transition: stroke 0.3s ease;
   animation: drawLine 3s ease forwards;
 }
-
+.animated-line:hover{
+  filter: brightness(5);
+}
 @keyframes drawLine {
   to {
     stroke-dashoffset: 0;
