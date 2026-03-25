@@ -4,7 +4,6 @@ import useDataContext from "../context/DataContext";
 
 function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x, y });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const { selNodeId, setSelNodeId } = useDataContext();
 
@@ -25,7 +24,6 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
         const newX = e.clientX - offset.x;
         const newY = e.clientY - offset.y;
 
-        setPosition({ x: newX, y: newY });
         onDrag(id, newX, newY);
       }
     };
@@ -43,9 +41,6 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
     };
   }, [isDragging, offset, id, onDrag]);
 
-  useEffect(() => {
-    setPosition({ x, y });
-  }, [x, y]);
 
   return (
     <div

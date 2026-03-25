@@ -1,13 +1,11 @@
-import './Drawline.css'
-
-function DrawLine({ 
-  id, 
-  x1, 
-  y1, 
-  x2, 
-  y2, 
-  brushColor = "#00b894", 
-  lineWidth = 3 
+export default function DrawLine({
+  id,
+  x1,
+  y1,
+  x2,
+  y2,
+  brushColor = "#00b894",
+  lineWidth = 3
 }) {
   const NODE_WIDTH = 160;
   const NODE_HEIGHT = 192;
@@ -25,16 +23,33 @@ function DrawLine({
   const c2x = endX - curve;
 
   return (
-    <path
-      key={id}
-      stroke={brushColor}
-      strokeWidth={lineWidth}
-      fill="none"
-      strokeLinecap="round"
-      className="animated-line"
-      d={`M ${startX} ${startY} C ${c1x} ${startY}, ${c2x} ${endY}, ${endX} ${endY}`}
-    />
+    <>
+      {/* Arrow definition */}
+      <defs>
+        <marker
+          id={`arrow-${id}`}
+          markerWidth="10"
+          markerHeight="10"
+          refX="9"
+          refY="5"
+          orient="auto"
+        >
+          <path d="M0,0 L10,5 L0,10 Z" fill={brushColor} />
+        </marker>
+      </defs>
+
+      {/* Line */}
+      <path
+        stroke={brushColor}
+        strokeWidth={lineWidth}
+        fill="none"
+        strokeLinecap="round"
+        markerEnd={`url(#arrow-${id})`}
+        d={`M ${startX} ${startY} C ${c1x} ${startY}, ${c2x} ${endY}, ${endX} ${endY}`}
+      />
+
+      {/* Start circle */}
+      <circle cx={startX} cy={startY} r={20} fill={brushColor} />
+    </>
   );
 }
-
-export default DrawLine;
