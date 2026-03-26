@@ -2,7 +2,7 @@ import Node from "./Nodes";
 import "./Canvas.css";
 import DrawLine from "./DrawLine";
 import useDataContext from "../context/DataContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 export default function Canvas() {
   const { nodeData, setNodeData } = useDataContext();
@@ -10,7 +10,7 @@ export default function Canvas() {
   const [pan,setPan]=useState({x:0, y:0});
   const [scale,setScale]=useState(1);
 
-  const updatePosition = (id, x, y) => {
+  const updatePosition = useCallback((id, x, y) => {
     const worldX = (x - pan.x) / scale;
     const worldY = (y - pan.y) / scale;
     setNodeData((prev) =>
@@ -21,7 +21,8 @@ export default function Canvas() {
           y: worldY } : item
       )
     );
-  };
+  },[pan,scale,setNodeData]);
+const nodeIds = useMemo(() => nodeData.map(n => n.id).join(","), [nodeData]);
 
   useEffect(() => {
     setVisibleNodes([]);
@@ -31,9 +32,9 @@ export default function Canvas() {
         setVisibleNodes((prev) => [...prev, node.id]);
       }, index * 200);
     });
-  }, [nodeData.map((n) => n.data).join(",")]);
+  }, [nodeIds]);
 
-  const handleZoom =(e)=>{
+  const handleZoom =useCallback((e)=>{
     e.preventDefault();
     if(!e.shiftKey) {
       return;
@@ -56,7 +57,7 @@ export default function Canvas() {
   
     setPan(newPan);
     setScale(newScale);
-  }
+  },[pan,scale])
 
   return (
     <div className="canvas" onWheel={handleZoom} style={{ position: "absolute" }}>

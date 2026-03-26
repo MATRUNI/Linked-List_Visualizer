@@ -1,4 +1,6 @@
-export default function DrawLine({
+import React from "react";
+import './Drawline.css'
+function DrawLine({
   id,
   x1,
   y1,
@@ -42,6 +44,7 @@ export default function DrawLine({
       <path
         stroke={brushColor}
         strokeWidth={lineWidth}
+        className="animated-line"
         fill="none"
         strokeLinecap="round"
         markerEnd={`url(#arrow-${id})`}
@@ -53,3 +56,5 @@ export default function DrawLine({
     </>
   );
 }
+
+export default React.memo(DrawLine)

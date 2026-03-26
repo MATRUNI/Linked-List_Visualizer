@@ -69,4 +69,4 @@ function Nodes({ id, x, y, data, isHead, isTail, next, onDrag }) {
   );
 }
 
-export default Nodes;
+export default React.memo(Nodes);
