@@ -3,8 +3,6 @@
     bottom: 0;
     left: 0;
     width: 100%; 
-    /* background: red; */
-    background: rgba(30, 35, 37, 0.95);
     padding: 1rem;
     height: 5.5rem;
     display: flex;
@@ -36,7 +34,7 @@ form {
 input {
     padding: 0 1rem;
     height: 3.2rem;
-    width: 250px;
+    width: 350px;
     
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -102,4 +100,27 @@ input:focus {
 }
 .input-wrapper input {
   padding-right: 3rem
+}
+
+.input-error {
+    border-top: 1px solid rgba(255, 118, 117, 0.5) !important;
+    box-shadow: 0 -10px 40px rgba(214, 48, 49, 0.2) !important;
+    background: rgba(214, 48, 49, 0.05); 
+}
+
+.error-field {
+    border-color: #ff7675 !important;
+    background: rgba(214, 48, 49, 0.1) !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+.error-field::placeholder {
+    color: #ff7675;
+    font-weight: 600;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }

@@ -6,7 +6,7 @@ import BeforeAfterToggle from "./BeforeAfterToggle";
 function Input() {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes, isAfter, setIsAfter } = useDataContext();
+  const { nodeData, setNodeData, selNodeId, setSelNodeId,hasNodes, isAfter } = useDataContext();
 
   const CANVAS_WIDTH = window.innerWidth;
   const NODE_WIDTH = 192;
@@ -171,9 +171,10 @@ function Input() {
           <div className="input-wrapper">
             <input
               type="text"
-              placeholder="Enter val (space or comma seperated)"
+              className={error ? "error-field" : ""}
+              placeholder={!error?"Enter val (space or comma seperated)":error}
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {setInput(e.target.value); setError("")}}
             />
             {input && (
               <button type="button" onClick={clearInput} className="clear-btn">
@@ -181,7 +182,6 @@ function Input() {
               </button>
             )}
           </div>
-          {error && <p className="error">{error}</p>}
           <button className="btn">Make Nodes</button>
           <div>
             <button className="btn" onClick={putData}>
