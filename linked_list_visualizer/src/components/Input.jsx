@@ -102,37 +102,28 @@ function Input() {
       arr = input.split(" ");
     }
 
-    const newNodeData =[];
+    const dummy = [];
     nodeData.forEach((element, index) => {
       if(selNodeId===element.id)
       {
-        let nodes=createNodeDataArray(arr);
         if(isAfter)
         {
-          nodes[nodes.length-1].next=element.next;
-          element.next=nodes[0].id;
-          newNodeData.push(element);
-          newNodeData.push(...nodes);
+          dummy.push(element.data);
+          dummy.push(...arr);
         }
         else
         {
-          if(index == 0) {
-            nodes[nodes.length - 1].next = element.id
-          }
-          else { 
-            newNodeData[newNodeData.length-1].next=nodes[0].id;
-            nodes[nodes.length-1].next=element.id;
-          }
-          newNodeData.push(...nodes);
-          newNodeData.push(element);
+          dummy.push(...arr);
+          dummy.push(element.data);
         }
       }
-      else
-      newNodeData.push(element);
+      else{
+      dummy.push(element.data)
+      }
       
     });
-    console.log(newNodeData);
-    setNodeData(newNodeData);
+    const x = createNodeDataArray(dummy);
+    setNodeData(x);
   }
 
   // create separate function to create inputData linked list
