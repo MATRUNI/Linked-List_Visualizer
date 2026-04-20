@@ -7,7 +7,8 @@ function DrawLine({
   x2,
   y2,
   brushColor = "#00b894",
-  lineWidth = 3
+  lineWidth = 3,
+  zoom=1
 }) {
   const NODE_WIDTH = 160;
   const NODE_HEIGHT = 192;
@@ -23,27 +24,27 @@ function DrawLine({
 
   const c1x = startX + curve;
   const c2x = endX - curve;
-
+  const markerSize = 10 * zoom;
   return (
     <>
       {/* Arrow definition */}
       <defs>
         <marker
           id={`arrow-${id}`}
-          markerWidth="10"
-          markerHeight="10"
-          refX="9"
-          refY="5"
+          markerWidth={markerSize}
+          markerHeight={markerSize}
+          refX={markerSize-1}
+          refY={markerSize/2}
           orient="auto"
         >
-          <path d="M0,0 L10,5 L0,10 Z" fill={brushColor} />
+          <path d={`M0,0 L${markerSize},${markerSize / 2} L0,${markerSize} Z`} fill={brushColor} />
         </marker>
       </defs>
 
       {/* Line */}
       <path
         stroke={brushColor}
-        strokeWidth={lineWidth}
+        strokeWidth={lineWidth*zoom}
         className="animated-line"
         fill="none"
         strokeLinecap="round"

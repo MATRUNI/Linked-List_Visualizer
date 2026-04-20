@@ -93,6 +93,7 @@ const nodeIds = useMemo(() => nodeData.map(n => n.id).join(","), [nodeData]);
                 y2={nextNode.y}
                 brushColor="#00b894"
                 lineWidth={4/scale}
+                zoom={scale}
               />
             );
           })}
