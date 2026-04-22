@@ -88,6 +88,7 @@ function Input() {
 
   const handleAppend = () => {
     if (!selNodeId) {
+      setError("Please select a node to insert!")
       return;
     }
     else if (!input) {
