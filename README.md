@@ -3,7 +3,7 @@
 An interactive, drag-and-drop web application built with **React** designed to make understanding Linked List data structures intuitive and visual. Whether you're a student learning CS fundamentals or just debugging a complex list, this tool brings pointers and nodes to life.
 
 
-![Project Preview]([https://linked-list-visualizer-five.vercel.app/])
+![Project Preview](https://linked-list-visualizer-five.vercel.app/)
 
 ---
 
